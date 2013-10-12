@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<metadata>
+  <groupId>org.watermint</groupId>
+  <artifactId>time-sugar</artifactId>
+  <version>r1</version>
+  <versioning>
+    <versions>
+      <version>r1</version>
+    </versions>
+    <lastUpdated>20131012234958</lastUpdated>
+  </versioning>
+</metadata>
