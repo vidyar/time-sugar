@@ -1,0 +1,41 @@
+apply plugin: 'java'
+apply plugin: 'maven'
+
+sourceCompatibility = "1.8"
+targetCompatibility = "1.8"
+
+repositories {
+    mavenLocal()
+    mavenCentral()
+}
+
+dependencies {
+    testCompile 'junit:junit:4.11'
+}
+
+// see http://forums.gradle.org/gradle/topics/1_7_rc_1_fails_to_read_classfile_for_test_when_using_java_8_0_ea_b99
+test.scanForTestClasses = false
+test {
+    include 'org/watermint/**/*Test.class'
+}
+
+uploadArchives {
+    repositories {
+        mavenDeployer {
+            pom.groupId = 'org.watermint'
+            pom.artifactId = 'time-sugar'
+            pom.version = 'r1'
+            pom.project {
+                licenses {
+                    license {
+                        name "The MIT License (MIT)"
+                        url "http://opensource.org/licenses/MIT"
+                        distribution "repo"
+                    }
+                }
+            }
+
+            repository(url: uri('build/mvn'))
+        }
+    }
+}
