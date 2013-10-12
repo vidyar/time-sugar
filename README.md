@@ -2,6 +2,8 @@
 
 Syntax sugar for java.time (JSR-310; Three-Ten).
 
+[![Build Status](https://travis-ci.org/watermint/time-sugar.png)](https://travis-ci.org/watermint/time-sugar)
+
 # Synopsis
 
 SugarParser returns java.time.Instant as Optional.
