@@ -36,41 +36,63 @@
 <h1>
 <a name="synopsis" class="anchor" href="#synopsis"><span class="octicon octicon-link"></span></a>Synopsis</h1>
 
-<p>SugarParser returns java.time.Instant as Optional.</p>
+<p>TimeSugar parse methods returns java.time.Instant as Optional.</p>
 
-<pre><code>SugarParser sp = new SugarParser("yyyy/MM/dd");
+<pre><code>TimeSugar ts = new TimeSugar("yyyy/MM/dd");
 
 // Parse string with default time zone
-Optional&lt;Instant&gt; d1 = sp.parse("2013-10-13");
-Optional&lt;Instant&gt; d2 = sp.parse("2013-10-13", ZoneId.of("Asia/Tokyo"));
-Optional&lt;Instant&gt; d3 = sp.parse("2013-10-13", ZoneOffset.of("+09:00"));
+Optional&lt;Instant&gt; d1 = ts.parse("2013-10-13");
+Optional&lt;Instant&gt; d2 = ts.parse("2013-10-13", ZoneId.of("Asia/Tokyo"));
+Optional&lt;Instant&gt; d3 = ts.parse("2013-10-13", ZoneOffset.of("+09:00"));
 
 // get instant from Optional
 System.out.println(d2.get); // 2013-10-12T15:00:00Z
 </code></pre>
 
-<p>SugarParser supports multiple possible date/time format.</p>
+<p>TimeSugar supports multiple possible date/time format.</p>
 
-<pre><code>SugarParser sp = new SugarParser("yyyy/MM/dd", "yyyy/MM/dd HH:mm:ss");
+<pre><code>TimeSugar ts = new TimeSugar("yyyy/MM/dd", "yyyy/MM/dd HH:mm:ss");
 
-Optional&lt;Instant&gt; d4 = sp.parse("2013-10-13");
-Optional&lt;Instant&gt; d5 = sp.parse("2013-10-13 08:00:00");
+Optional&lt;Instant&gt; d4 = ts.parse("2013-10-13");
+Optional&lt;Instant&gt; d5 = ts.parse("2013-10-13 08:00:00");
 </code></pre>
 
-<p>Static functions also available:</p>
+<p>Static functions for parsing also available:</p>
 
-<pre><code>SugarParser.parseWithPatterns("2013-10-13", "yyyy-MM-dd");
-SugarParser.parseWithPatterns("2013-10-13", "yyyy-MM-dd", "yyyy/MM/dd");
-SugarParser.parseWithPatterns("2013-10-13", ZoneId.of("Asia/Tokyo"), "yyyy-MM-dd");
+<pre><code>TimeSugar.parseWithPatterns("2013-10-13", "yyyy-MM-dd");
+TimeSugar.parseWithPatterns("2013-10-13", "yyyy-MM-dd", "yyyy/MM/dd");
+TimeSugar.parseWithPatterns("2013-10-13", ZoneId.of("Asia/Tokyo"), "yyyy-MM-dd");
+</code></pre>
+
+<p>Formatter also available as static function.</p>
+
+<pre><code>TimeSugar.format(Instant.now, "yyyy-MM-dd", ZoneId.of("Asia/Tokyo"))
+// 2013-10-13
 </code></pre>
 
 <h1>
 <a name="use" class="anchor" href="#use"><span class="octicon octicon-link"></span></a>Use</h1>
 
 <h2>
+<a name="gradle" class="anchor" href="#gradle"><span class="octicon octicon-link"></span></a>gradle</h2>
+
+<pre><code>repositories {
+    mavenLocal()
+    mavenCentral()
+    maven {
+      url "http://http://watermint.github.io/time-sugar/mvn"
+    }
+}
+
+dependencies {
+    compile 'org.watermint:time-sugar:r2'
+}
+</code></pre>
+
+<h2>
 <a name="sbt" class="anchor" href="#sbt"><span class="octicon octicon-link"></span></a>sbt</h2>
 
-<pre><code>libraryDependencies += "org.watermint" % "time-sugar" % "r1"
+<pre><code>libraryDependencies += "org.watermint" % "time-sugar" % "r2"
 
 resolvers += "watermint/time-sugar" at "http://watermint.github.io/time-sugar/mvn"
 </code></pre>
