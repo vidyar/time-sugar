@@ -4,7 +4,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>org.watermint</groupId>
   <artifactId>time-sugar</artifactId>
-  <version>r1</version>
+  <version>r2</version>
   <licenses>
     <license>
       <name>The MIT License (MIT)</name>
