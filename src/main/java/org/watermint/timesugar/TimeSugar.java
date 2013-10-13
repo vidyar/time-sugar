@@ -2,7 +2,6 @@ package org.watermint.timesugar;
 
 import java.time.*;
 import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeFormatterBuilder;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -12,7 +11,7 @@ import java.util.Optional;
 /**
  * Parser.
  */
-public class SugarParser {
+public class TimeSugar {
     private List<DateTimeFormatter> formatters = new ArrayList<>();
 
     /**
@@ -20,7 +19,7 @@ public class SugarParser {
      *
      * @param patterns acceptable date/time format patterns.
      */
-    public SugarParser(String... patterns) {
+    public TimeSugar(String... patterns) {
         this(Arrays.asList(patterns));
     }
 
@@ -29,10 +28,22 @@ public class SugarParser {
      *
      * @param patterns acceptable date/time format patterns.
      */
-    public SugarParser(Iterable<String> patterns) {
+    public TimeSugar(Iterable<String> patterns) {
         for (String pattern : patterns) {
-            formatters.add(new DateTimeFormatterBuilder().appendPattern(pattern).toFormatter());
+            formatters.add(DateTimeFormatter.ofPattern(pattern));
         }
+    }
+
+    /**
+     * @param instant instant.
+     * @param pattern format string.
+     * @param zoneId  time zone.
+     * @return formatted string
+     */
+    public static String format(Instant instant, String pattern, ZoneId zoneId) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern(pattern);
+        LocalDateTime dateTime = LocalDateTime.ofInstant(instant, zoneId);
+        return dateTime.format(formatter);
     }
 
     /**
@@ -43,7 +54,7 @@ public class SugarParser {
      * @return instant
      */
     public static Optional<Instant> parseWithPatterns(String text, String... patterns) {
-        return new SugarParser(patterns).parse(text);
+        return new TimeSugar(patterns).parse(text);
     }
 
     /**
@@ -54,7 +65,7 @@ public class SugarParser {
      * @return instant
      */
     public static Optional<Instant> parseWithPatterns(String text, Iterable<String> patterns) {
-        return new SugarParser(patterns).parse(text);
+        return new TimeSugar(patterns).parse(text);
     }
 
     /**
@@ -65,7 +76,7 @@ public class SugarParser {
      * @return instant
      */
     public static Optional<Instant> parseWithPatterns(String text, ZoneId zoneId, String... patterns) {
-        return new SugarParser(patterns).parse(text, zoneId);
+        return new TimeSugar(patterns).parse(text, zoneId);
     }
 
     /**
@@ -76,7 +87,7 @@ public class SugarParser {
      * @return instant
      */
     public static Optional<Instant> parseWithPatterns(String text, ZoneId zoneId, Iterable<String> patterns) {
-        return new SugarParser(patterns).parse(text, zoneId);
+        return new TimeSugar(patterns).parse(text, zoneId);
     }
 
     /**
@@ -87,7 +98,7 @@ public class SugarParser {
      * @return instant
      */
     public static Optional<Instant> parseWithPatterns(String text, ZoneOffset zoneOffset, String... patterns) {
-        return new SugarParser(patterns).parse(text, zoneOffset);
+        return new TimeSugar(patterns).parse(text, zoneOffset);
     }
 
     /**
@@ -98,7 +109,7 @@ public class SugarParser {
      * @return instant
      */
     public static Optional<Instant> parseWithPatterns(String text, ZoneOffset zoneOffset, Iterable<String> patterns) {
-        return new SugarParser(patterns).parse(text, zoneOffset);
+        return new TimeSugar(patterns).parse(text, zoneOffset);
     }
 
     /**
@@ -168,5 +179,4 @@ public class SugarParser {
 
         return Optional.empty();
     }
-
 }

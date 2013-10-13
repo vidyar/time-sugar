@@ -24,7 +24,7 @@ uploadArchives {
         mavenDeployer {
             pom.groupId = 'org.watermint'
             pom.artifactId = 'time-sugar'
-            pom.version = 'r1'
+            pom.version = 'r2'
             pom.project {
                 licenses {
                     license {
